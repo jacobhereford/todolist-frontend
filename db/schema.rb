@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327214720) do
+ActiveRecord::Schema.define(version: 20160627181213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chore_duties", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "chore_id"
+    t.date     "done_on"
+    t.time     "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "chore_duties", ["chore_id"], name: "index_chore_duties_on_chore_id", using: :btree
+  add_index "chore_duties", ["user_id"], name: "index_chore_duties_on_user_id", using: :btree
+
+  create_table "chores", force: :cascade do |t|
+    t.string   "chore"
+    t.string   "where"
+    t.string   "when"
+    t.date     "to_be_done_by"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "examples", force: :cascade do |t|
     t.text     "text",       null: false
@@ -36,5 +57,7 @@ ActiveRecord::Schema.define(version: 20160327214720) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
+  add_foreign_key "chore_duties", "chores"
+  add_foreign_key "chore_duties", "users"
   add_foreign_key "examples", "users"
 end
