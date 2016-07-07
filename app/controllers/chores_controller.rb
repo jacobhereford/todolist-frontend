@@ -1,10 +1,10 @@
-class ChoresController < ApplicationController
+class ChoresController < ProtectedController
   before_action :set_chore, only: [:show, :update, :destroy]
-  before_action :authenticate
+
   # GET /chores
   # GET /chores.json
   def index
-    @chores = Chore.all
+    @chores = current_user.chores
 
     render json: @chores
   end
@@ -54,6 +54,6 @@ class ChoresController < ApplicationController
     end
 
     def chore_params
-      params.require(:chore).permit(:chore, :where, :when, :to_be_done_by)
+      params.require(:chore).permit(:title, :where, :when, :user_id)
     end
 end

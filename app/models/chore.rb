@@ -1,3 +1,3 @@
 class Chore < ActiveRecord::Base
-  has_many :chore_duties
+  belongs_to :user, inverse_of: :chores
 end

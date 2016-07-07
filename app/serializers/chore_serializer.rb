@@ -1,3 +1,4 @@
 class ChoreSerializer < ActiveModel::Serializer
-  attributes :id, :chore, :where, :when, :to_be_done_by
+  attributes :id, :title, :where, :when
+  has_one :user
 end
