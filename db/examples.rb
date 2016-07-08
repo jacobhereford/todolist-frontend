@@ -17,10 +17,12 @@
                password_confirmation: 'abc123')
 end
 
-10.times do |i|
-  chore = Chore.new(chore: "test#{i}")
-  chore.save!
+User.create([
+  { email: 'jacob@jacob.com', password: '123', password_confirmation: '123' }
+  ])
 
-  user = User.first
-  user.chore_duties.create(chore: chore)
-end
+Chore.create([
+  { title: 'Sweep', where: 'Kitchen', when: 'Tonight', user_id: 5},
+  { title: 'Clean', where: 'Bedroom', when: 'Tonight', user_id: 4},
+  { title: 'Laundry', where: 'Basement', when: 'Weekend', user_id: 5},
+  ])

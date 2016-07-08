@@ -1,10 +1,10 @@
 class CreateChores < ActiveRecord::Migration
   def change
     create_table :chores do |t|
-      t.string :chore
+      t.string :title
       t.string :where
       t.string :when
-      t.date :to_be_done_by
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
