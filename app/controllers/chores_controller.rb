@@ -18,7 +18,7 @@ class ChoresController < ProtectedController
   # POST /chores
   # POST /chores.json
   def create
-    @chore = Chore.new(chore_params)
+    @chore = current_user.chores.new(chore_params)
 
     if @chore.save
       render json: @chore, status: :created, location: @chore
